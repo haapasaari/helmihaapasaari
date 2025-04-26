@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://48jwjghdhnq2"]
+[gd_scene load_steps=7 format=3 uid="uid://48jwjghdhnq2"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8pq8x"]
 [ext_resource type="PackedScene" uid="uid://cxral80uvfb6e" path="res://scenes/snake.tscn" id="2_ifmyr"]
 [ext_resource type="Texture2D" uid="uid://cwm87hg8ed5xn" path="res://tausta 2.png" id="3_qob1f"]
 [ext_resource type="PackedScene" uid="uid://guv070sd1bxg" path="res://scenes/canvas_layer.tscn" id="4_lwmp3"]
+[ext_resource type="Texture2D" uid="uid://cigyc0bk23xc" path="res://cherry.png" id="5_jw1i0"]
+[ext_resource type="PackedScene" uid="uid://bcagjusqdgq00" path="res://scenes/game_over_menu.tscn" id="6_tv4xu"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_8pq8x")
@@ -19,4 +21,14 @@ texture = ExtResource("3_qob1f")
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="Food" type="Sprite2D" parent="."]
+position = Vector2(25, 25)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("5_jw1i0")
+offset = Vector2(25, 25)
+
+[node name="GameOverMenu" parent="." instance=ExtResource("6_tv4xu")]
+process_mode = 2
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="restart" from="GameOverMenu" to="." method="_on_game_over_menu_restart"]
